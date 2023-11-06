@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My React App</title>
+  <style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: antiquewhite;
+  margin: 0;
+  padding: 0;
+}
+
+#like_button_container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #1877f2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  border-bottom: 1px solid black;
+}
+
+button:hover {
+  background-color: #1157d9;
+}
+
+  </style>
+</head>
+<body>
+  <div id="like_button_container"></div>
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js"
+  crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"
+  crossorigin></script>  
+<script src="like_button.js">
+    'use strict';
+
+const e = React.createElement;
+
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
+  }
+
+  render() {
+    if (this.state.liked) {
+      return 'Тебе нравится это.' + this.props.commentID;
+    }
+
+    return e(
+      'button',
+      { onClick: () => this.setState({ liked: true }) },
+      'Лайк'
+    );
+  }
+}
+
+const domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(e(LikeButton), domContainer);
+
+
+document.querySelectorAll('.like_button_container')
+  .forEach(domContainer => {
+      const commentID = parseInt(domContainer.CDATA_SECTION_NODE.commentID, 10);
+      ReactDOM.render (
+        e(LikeButton, {commentID: commentID}),
+      );
+    });
+</script>
+<script src="app.js">import React, { Component } from 'react';
+
+    class MyComponent extends Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+        };
+      }
+    
+      componentDidMount() {
+      }
+    
+      componentWillUnmount() {
+      }
+    
+      handleClick() {
+      }
+    
+      render() {
+        return (
+          <div>
+            <h1>Hello, React!</h1>
+            <p>Привет, это мой первый компонент React.</p>
+            <button onClick={this.handleClick}>Нажми меня</button>
+          </div>
+        );
+      }
+    }
+    
+    export default MyComponent;
+    </script>
+</body>
+</html>
